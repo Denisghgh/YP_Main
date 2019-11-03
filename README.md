@@ -1,4 +1,4 @@
 # TI_Main
-Сourse project for TI "Game Center"
+Сourse project for PL "Game Center"
 Denis Marchenko && Ilya Jermolovich 
 Part_1:
