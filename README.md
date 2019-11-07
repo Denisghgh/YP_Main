@@ -1,4 +1,4 @@
-# TI_Main
+# YaP_Main
 Сourse project for PL "Game Center"
 Denis Marchenko && Ilya Jermolovich 
 Part_1:
