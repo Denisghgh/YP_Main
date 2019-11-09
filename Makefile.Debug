@@ -518,13 +518,6 @@ debug/mainwindow.o: mainwindow.cpp mainwindow.h \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/qabstractbutton.h \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/QStatusBar \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/qstatusbar.h \
-		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/QTextEdit \
-		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/qtextedit.h \
-		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtGui/qtextdocument.h \
-		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtGui/qtextoption.h \
-		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtGui/qtextcursor.h \
-		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtGui/qtextformat.h \
-		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtGui/qpen.h \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/QToolBar \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/qtoolbar.h \
 		../../../../../Qt/Qt5.2.1/5.2.1/mingw48_32/include/QtWidgets/QVBoxLayout \
