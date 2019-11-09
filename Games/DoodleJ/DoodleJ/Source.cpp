@@ -1,5 +1,4 @@
 #include <SFML/Graphics.hpp>
-#include <time.h>
 using namespace sf;
 
 struct point
@@ -9,8 +8,6 @@ struct point
 
 int main()
 {
-	srand(time(0));
-
 	RenderWindow app(VideoMode(400, 533), "Doodle Game!");
 	app.setFramerateLimit(60);
 
@@ -44,7 +41,7 @@ int main()
 		if (Keyboard::isKeyPressed(Keyboard::Right)) x += 3;
 		if (Keyboard::isKeyPressed(Keyboard::Left)) x -= 3;
 
-		dy +=0.2;
+		dy += 0.2;
 		y += dy;
 		if (y > 500)  dy = -10;
 
@@ -53,12 +50,17 @@ int main()
 			{
 				y = h;
 				plat[i].y = plat[i].y - dy;
-				if (plat[i].y > 533) { plat[i].y = 0; plat[i].x = rand() % 400; }
+				if (plat[i].y > 533) {
+					plat[i].y = 0;
+					plat[i].x = rand() % 400; 
+				}
+				if (plat[i].x > 400 - 68) plat[i].x = 400 - 68;
 			}
 
 		for (int i = 0; i < 10; i++)
 			if ((x + 50 > plat[i].x) && (x + 20 < plat[i].x + 68)
-				&& (y + 70 > plat[i].y) && (y + 70 < plat[i].y + 14) && (dy > 0))  dy = -10;
+				&& (y + 70 > plat[i].y) && (y + 70 < plat[i].y + 14) && (dy > 0))
+				dy = -10;
 
 		if (x > 400) x = 0;
 		if (x < 0) x = 400;
@@ -68,7 +70,6 @@ int main()
 		app.draw(sPers);
 		for (int i = 0; i < 10; i++)
 		{
-			if (plat[i].x > 400-68) plat[i].x = 400 - 68;
 			sPlat.setPosition(plat[i].x, plat[i].y);
 			app.draw(sPlat);
 		}
