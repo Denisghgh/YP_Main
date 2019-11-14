@@ -17,7 +17,6 @@ Circle.waitForFinished(-1);
 
 void Snake_Game()
 {
-//system("start C:\\Trash\\Course_YP\\Games\\Snake\\Snake1\\x64\\Debug\\Snake1.exe");
 QProcess Snake_Game;
 Snake_Game.start("Games\\Snake\\Snake1\\x64\\Debug\\Snake1.exe");
 Snake_Game.waitForFinished(-1);
@@ -25,6 +24,7 @@ Snake_Game.waitForFinished(-1);
 
 void DoodleJ()
 {
+//system("start C:\\Users\\Denisgh\\Documents\\GitHub\\Yp_Main\\Games\\DoodleJ\\x64\\Debug\\DoodleJ.exe");
 QProcess DoodleJ;
 DoodleJ.start("Games\\DoodleJ\\x64\\Debug\\DoodleJ.exe");
 DoodleJ.waitForFinished(-1);
@@ -46,6 +46,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_b1_clicked()
 {
     Circles();
+    ui->textEdit->setText("Worked!");
 }
 
 

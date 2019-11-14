@@ -20,6 +20,7 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QTextEdit>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -41,6 +42,7 @@ public:
     QVBoxLayout *verticalLayout_3;
     QLabel *label_3;
     QPushButton *pushButton_2;
+    QTextEdit *textEdit;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -54,7 +56,7 @@ public:
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         gridLayoutWidget_2 = new QWidget(centralWidget);
         gridLayoutWidget_2->setObjectName(QStringLiteral("gridLayoutWidget_2"));
-        gridLayoutWidget_2->setGeometry(QRect(30, 20, 461, 231));
+        gridLayoutWidget_2->setGeometry(QRect(30, 150, 461, 101));
         Mainn = new QGridLayout(gridLayoutWidget_2);
         Mainn->setSpacing(6);
         Mainn->setContentsMargins(11, 11, 11, 11);
@@ -109,6 +111,9 @@ public:
 
         Mainn->addLayout(verticalLayout_3, 0, 2, 1, 1);
 
+        textEdit = new QTextEdit(centralWidget);
+        textEdit->setObjectName(QStringLiteral("textEdit"));
+        textEdit->setGeometry(QRect(150, 270, 201, 71));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));

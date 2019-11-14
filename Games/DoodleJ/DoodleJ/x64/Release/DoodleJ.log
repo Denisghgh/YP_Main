@@ -1,5 +1,12 @@
 ﻿  Source.cpp
+c:\users\denisgh\documents\github\yp_main\games\doodlej\doodlej\source.cpp(44): warning C4305: +=: усечение из "double" в "float"
+c:\users\denisgh\documents\github\yp_main\games\doodlej\doodlej\source.cpp(45): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
+c:\users\denisgh\documents\github\yp_main\games\doodlej\doodlej\source.cpp(52): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+c:\users\denisgh\documents\github\yp_main\games\doodlej\doodlej\source.cpp(67): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\denisgh\documents\github\yp_main\games\doodlej\doodlej\source.cpp(73): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
   Создание кода
-  All 4 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  60 of 60 functions (100.0%) were compiled.
+    56 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Создание кода завершено
-  DoodleJ.vcxproj -> C:\Trash\Course_YP\Games\DoodleJ\x64\Release\DoodleJ.exe
+  DoodleJ.vcxproj -> C:\Users\Denisgh\Documents\GitHub\Yp_Main\Games\DoodleJ\x64\Release\DoodleJ.exe
