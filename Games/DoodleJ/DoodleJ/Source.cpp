@@ -1,11 +1,14 @@
 #include <SFML/Graphics.hpp>
 #include <sstream>
+#include <windows.h>
+#include <string> 
 #define CountPlot 10
-#define HeithJump 200
+#define Acceleration 0.2
 #define WindowW 400
 #define WindowH 533
 #define HeithJump 200
-#include <windows.h>
+#define SpeedFPS 60
+
 using namespace sf;
 
 struct point
@@ -13,12 +16,37 @@ struct point
 	int x, y;
 };
 
+void Score(sf::RenderWindow& app, int x, int  y, int score) {
+	Font font;
+	font.loadFromFile("CyrilicOld.ttf");
+	Text text("", font, 20);//создаем объект текст. закидываем в объект текст строку, шрифт, размер шрифта(в пикселях);//сам объект текст (не строка)
+	//text.setColor(Color::Red);
+	text.setFillColor(Color::Red);
+	//text.setStyle(Text::Bold | Text::Underlined);
+
+	std::string s = std::to_string(y);// y into str
+	s = "Y = " + s;
+	text.setString(s);
+	text.setPosition(10, 20);
+	app.draw(text);
+
+	s = std::to_string(x);// x into str
+	s = "Y = " + s;
+	text.setString(s);
+	text.setPosition(10, 4);
+	app.draw(text);
+
+	s = std::to_string(score);// score into str
+	s = "Y = " + s;
+	text.setString(s);
+	text.setPosition(350, 4);
+	app.draw(text);
+}
+
 int main()
 {
-
-
 	RenderWindow app(VideoMode(WindowW, WindowH), "Doodle Game!");
-	app.setFramerateLimit(60);
+	app.setFramerateLimit(SpeedFPS);
 
 	Texture t1, t2, t3;
 	t1.loadFromFile("images/background.png");
@@ -35,7 +63,7 @@ int main()
 		plat[i].y = rand() % WindowH;
 	}
 
-	int x = 100, y = 100;
+	int x = 100, y = 100, score = 0;
 	float dx = 0, dy = 0;
 
 	while (app.isOpen())
@@ -50,12 +78,13 @@ int main()
 		if (Keyboard::isKeyPressed(Keyboard::Right)) x += 3;
 		if (Keyboard::isKeyPressed(Keyboard::Left)) x -= 3;
 
-		dy += 0.10;
+		dy += Acceleration;
 		y += dy;
 
 		if (y < HeithJump)
 			for (int i = 0; i < CountPlot; i++)
 			{
+				score = score + HeithJump - y;
 				y = HeithJump;
 				plat[i].y = plat[i].y - dy;
 				if (plat[i].y > WindowH) {
@@ -65,7 +94,6 @@ int main()
 
 		
 			}
-		///if (x > WindowW - 136) x = WindowW - 68;
 		for (int i = 0; i < CountPlot; i++)
 			if ((x + 50 > plat[i].x) && (x + 20 < plat[i].x + 68)
 				&& (y + 70 > plat[i].y) && (y + 70 < plat[i].y + 14) && (dy > 0))
@@ -79,7 +107,6 @@ int main()
 		}
 		sPers.setPosition(x, y);
 
-
 		app.draw(sBackground);
 		app.draw(sPers);
 		for (int i = 0; i < CountPlot; i++)
@@ -87,17 +114,7 @@ int main()
 			sPlat.setPosition(plat[i].x, plat[i].y);
 			app.draw(sPlat);
 		}
-		Font font;//шрифт 
-		font.loadFromFile("CyrilicOld.ttf");//передаем нашему шрифту файл шрифта
-		Text text("", font, 20);//создаем объект текст. закидываем в объект текст строку, шрифт, размер шрифта(в пикселях);//сам объект текст (не строка)
-		//text.setColor(Color::Red);//покрасили текст в красный. если убрать эту строку, то по умолчанию он белый
-		text.setFillColor(Color::Red);
-		text.setStyle(Text::Bold | Text::Underlined);//жирный и подчеркнутый текст. по умолчанию он "худой":)) и не подчеркнутый
-
-		text.setString("Собрано камней:");//задает строку тексту
-		text.setPosition(50, 50);//задаем позицию текста, центр камеры
-		app.draw(text);//рисую этот текст
-		
+		Score(app, x, y, score);
 		app.display();
 	}
 
