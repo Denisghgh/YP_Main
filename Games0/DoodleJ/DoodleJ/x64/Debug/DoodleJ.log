@@ -1,0 +1,7 @@
+﻿  Source.cpp
+c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(83): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
+c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(90): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(114): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(118): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(124): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  DoodleJ.vcxproj -> C:\Users\Denisgh\Documents\GitHub\Yp_Main\Games0\DoodleJ\x64\Debug\DoodleJ.exe

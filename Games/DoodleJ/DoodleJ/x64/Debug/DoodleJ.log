@@ -1,7 +1,0 @@
-﻿  Source.cpp
-c:\users\denisgh\documents\github\yp_main\games\doodlej\doodlej\source.cpp(79): warning C4305: +=: усечение из "double" в "float"
-c:\users\denisgh\documents\github\yp_main\games\doodlej\doodlej\source.cpp(80): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
-c:\users\denisgh\documents\github\yp_main\games\doodlej\doodlej\source.cpp(87): warning C4244: =: преобразование "float" в "int", возможна потеря данных
-c:\users\denisgh\documents\github\yp_main\games\doodlej\doodlej\source.cpp(106): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-c:\users\denisgh\documents\github\yp_main\games\doodlej\doodlej\source.cpp(112): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-  DoodleJ.vcxproj -> C:\Users\Denisgh\Documents\GitHub\Yp_Main\Games\DoodleJ\x64\Debug\DoodleJ.exe
