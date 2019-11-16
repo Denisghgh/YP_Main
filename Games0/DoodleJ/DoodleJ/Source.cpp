@@ -1,20 +1,21 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <sstream>
 #include <stdlib.h>
 #include <cstdlib>
 #include <windows.h>
-#include <iostream> 
+#include <iostream> //нужен для вывода строк "cout<<"
 #include <iterator> 
 #include <cstdio>
 #include <cstdint>
 #include <random>
 
-
-#define CountPlot_Main 13
-#define CountPlot_Breaking 3
-#define Count_SuperJump 1
+#define CountPlot_Main 10
+#define CountPlot_Breaking 0
+#define Count_SuperJump 0
+#define Count_OneJump 3
 #define HandsUp_Time 45
-#define Acceleration_Y 0.2
+#define Acceleration_Y 0.2//0.2
 #define WindowW 400
 #define Acceleration_X 3
 #define WindowH 533
@@ -31,11 +32,17 @@ struct point
 };
 
 void Starting_preparartions(point* plat){
-	
-	for (int i = 0; i < CountPlot_Main; i++)
-	{
-		plat[i].x = rand() % (WindowW - 68) + 0;
-		plat[i].y = rand() % WindowH;
+	int n = WindowH / CountPlot_Main;
+	int height = n;
+	int count = 0;
+	for (int i = 0; i < CountPlot_Main; i++) {
+		plat[i].x = 0 + rand() / (float)RAND_MAX * ((WindowW - 68) - 0);
+		
+		plat[i].y = 0;
+		plat[i].y = rand() % (height - count) + count;
+		count = count + n;
+		height = height + n;
+		
 		plat[i].type = 1;
 	}
 }
@@ -62,31 +69,40 @@ void Score(sf::RenderWindow& app, int x, int  y, int score) {
 	s = std::to_string(score);// score into str
 	s = "Scope = " + s;
 	text.setString(s);
-	text.setPosition(280, 4);
+	text.setPosition(280, 4);//280
 	app.draw(text);
 }
 
-int Touch_Platform(point* plat, int x, int y, float &dy, int touch) {
+int Touch_Platform(point* plat, int x, int y, float &dy, int touch, Sound &jump_sound) {
 	for (int i = 0; i < CountPlot_Main; i++) {
 		if ((x + 50 > plat[i].x) && (x + 20 < plat[i].x + 68)
 			&& (y + 70 > plat[i].y) && (y + 70 < plat[i].y + 14) && (dy > 0) && (plat[i].type == 1)) {
 			dy = -10;
 			touch = HandsUp_Time;
+			jump_sound.play();
 		}
 		if ((x + 50 > plat[i].x) && (x + 20 < plat[i].x + 68)
-			&& (y + 70 > plat[i].y) && (y + 70 < plat[i].y + 14) && (dy > 0) && (plat[i].type ==2)) {
+			&& (y + 70 > plat[i].y) && (y + 70 < plat[i].y + 14) && (dy > 0) && (plat[i].type == 2)) {
 			plat[i].type = 22;
 		}
 		if ((x + 50 > plat[i].x) && (x + 20 < plat[i].x + 68)
 			&& (y + 70 > plat[i].y) && (y + 70 < plat[i].y + 14) && (dy > 0) && (plat[i].type == 3)) {
 			dy = -20;
 			touch = HandsUp_Time;
+			jump_sound.play();
+		}
+		if ((x + 50 > plat[i].x) && (x + 20 < plat[i].x + 68)
+			&& (y + 70 > plat[i].y) && (y + 70 < plat[i].y + 14) && (dy > 0) && (plat[i].type == 4)) {
+			dy = -10;
+			touch = HandsUp_Time;
+			jump_sound.play();
+			plat[i].type = 0;
 		}
 	}
 	return touch;
 }
 
-int MoveScreen(point* plat, int x, int &y, float &dy, int score, int &CountPlot_Br, int &CountPlot_SupJmp) {
+int MoveScreen(point* plat, int x, int &y, float &dy, int score, int &CountPlot_Br, int &CountPlot_SupJmp, int &CountPlot_OneJmp) {
 	if (y < HeithJump) {
 		score = score + HeithJump - y;
 		for (int i = 0; i < CountPlot_Main; i++)
@@ -94,23 +110,32 @@ int MoveScreen(point* plat, int x, int &y, float &dy, int score, int &CountPlot_
 			y = HeithJump;
 			plat[i].y = plat[i].y - dy;
 			if (plat[i].y > WindowH) {
-				if (plat[i].type == 22)  //regen
+				if (plat[i].type == 22)  //regen brown
 					plat[i].type = 2;
+				if (plat[i].type == 0)  //regen white
+					plat[i].type = 4;
 
 				plat[i].y = rand() % (-50) + 0;// немного рандомит появление новых платформ
+				if ((plat[i - 1].y + 10 > plat[i].y) || (plat[i - 1].y - 10 < plat[i].y)) // проверка от склеивания платформ
+					plat[i].y = plat[i].y + 10;
 				plat[i].x = rand() % (WindowW - 68) + 0;
-				
-				if ((CountPlot_SupJmp < Count_SuperJump) || (CountPlot_Br < CountPlot_Breaking)) {
-					plat[i].type = rand() % 3 + 2;
+
+				if ((CountPlot_SupJmp < Count_SuperJump) || (CountPlot_Br < CountPlot_Breaking) || (CountPlot_OneJmp < Count_OneJump)) {
+					plat[i].type = rand() % 2 + 3;//2.3.4
 					if (plat[i].type == 3 && CountPlot_SupJmp < Count_SuperJump) {
 						CountPlot_SupJmp++;
-					} else
-					if (plat[i].type == 2 && CountPlot_Br < CountPlot_Breaking) {
-						CountPlot_Br++;
 					}
-					else {
-						plat[i].type = 1;
-					}				
+					else
+						if (plat[i].type == 2 && CountPlot_Br < CountPlot_Breaking) {
+							CountPlot_Br++;
+						}
+						else 
+							if (plat[i].type == 4 && CountPlot_OneJmp < Count_OneJump) {
+								CountPlot_OneJmp++;
+							}
+							else {
+								plat[i].type = 1;
+							}
 				}
 			}
 		}
@@ -125,7 +150,6 @@ void GameEnd_YareDead(sf::RenderWindow& app, const int y) {
 	}
 }
 
-
 void If_Touch_plat_What_Moves_sPers(sf::RenderWindow& app, Sprite sPers, Sprite sPers2, int x, int y, int &touch) {
 	if (touch > 0) {    //draw spers
 		touch--;
@@ -138,27 +162,51 @@ void If_Touch_plat_What_Moves_sPers(sf::RenderWindow& app, Sprite sPers, Sprite 
 	}
 }
 
+void Draw_sPlat(sf::RenderWindow& app, const point* plat, Sprite sPlat, int x, int y, int type) {
+	for (int i = 0; i < CountPlot_Main; i++) //draw splat
+	{
+		if (plat[i].type == type)
+		{
+			sPlat.setPosition(plat[i].x, plat[i].y);
+			app.draw(sPlat);
+		}
+	}
+}
+
+void Sound_Playing(Sound &jump_sound){
+	jump_sound.play();
+}
+
+
 int main()
 {
+	SoundBuffer jumpBuffer;
+	jumpBuffer.loadFromFile("images/JumpSound.ogg");
+	Sound jump_sound(jumpBuffer);
+	//jump_sound.play();
+
+//	Sound_Playing(jump_sound);
+
 	srand(time(NULL)); //for random
 	RenderWindow app(VideoMode(WindowW, WindowH), "Doodle Game!");
 	app.setFramerateLimit(SpeedFPS);
 
-	Texture t1, t2, t2_2, t2_2_Br, t2_3, t3, t4;
+	Texture t1, t2, t2_2, t2_2_Br, t2_3, t3, t4, t2_4;
 	t1.loadFromFile("images/background1.png");
 	t2.loadFromFile("images//platform_main.png");
 	t2_2.loadFromFile("images//platform_2.png");
 	t2_2_Br.loadFromFile("images//platform_2_Br.png");
 	t2_3.loadFromFile("images//platform_3.png");
+	t2_4.loadFromFile("images//platform_4.png");
 	t3.loadFromFile("images/doodle3.png");
 	t4.loadFromFile("images/doodle.png");
 	
-	Sprite sBackground(t1), sPlat(t2), sPlat2(t2_2), sPlat2_2(t2_2_Br), sPlat3(t2_3), sPers(t3), sPers2(t4);
+	Sprite sBackground(t1), sPlat(t2), sPlat2(t2_2), sPlat2_2(t2_2_Br), sPlat3(t2_3), sPlat4(t2_4), sPers(t3), sPers2(t4);
 
 	point plat[CountPlot_Main];
 	Starting_preparartions(plat);
 
-	int x = 100, y = 100, score = 0, touch = 0, CountPlot_Br = 0, CountPlot_SupJmp = 0;
+	int x = 100, y = 100, score = 0, touch = 0, CountPlot_Br = 0, CountPlot_SupJmp = 0, CountPlot_OneJmp = 0;
 	float dy = 0;
 
 	while (app.isOpen())
@@ -172,12 +220,16 @@ int main()
 
 		if (Keyboard::isKeyPressed(Keyboard::Right)) x += Acceleration_X;
 		if (Keyboard::isKeyPressed(Keyboard::Left)) x -= Acceleration_X;
+     if (Keyboard::isKeyPressed(Keyboard::Up)) y = y - 20;
+	if (Keyboard::isKeyPressed(Keyboard::Down)) y = y + 20;
+	if (Keyboard::isKeyPressed(Keyboard::Space)) dy += 0.2;
+	if (Keyboard::isKeyPressed(Keyboard::Delete)) dy = 0;
 
 		dy += Acceleration_Y;
 		y += dy;
 
-		score = MoveScreen(plat, x, y, dy, score, CountPlot_Br, CountPlot_SupJmp);
-		touch = Touch_Platform(plat, x, y, dy, touch);
+		score = MoveScreen(plat, x, y, dy, score, CountPlot_Br, CountPlot_SupJmp, CountPlot_OneJmp);
+		touch = Touch_Platform(plat, x, y, dy, touch, jump_sound);
 
 		if (x > WindowW) x = 0;
 		if (x < 0) x = WindowW;
@@ -186,34 +238,16 @@ int main()
 		///////////////////////////////////////////////////////////////start drawing
 		sBackground.setPosition(0,0); //draw background
 		app.draw(sBackground);
-		
-		If_Touch_plat_What_Moves_sPers(app, sPers, sPers2, x, y, touch);
 	
-		
-		for (int i = 0; i < CountPlot_Main; i++) //draw splat
-		{
-			if (plat[i].type == 2)
-			{
-				sPlat2.setPosition(plat[i].x, plat[i].y);
-				app.draw(sPlat2);
-			}
-			if (plat[i].type == 1)
-			{
-				sPlat.setPosition(plat[i].x, plat[i].y);
-				app.draw(sPlat);
-			}
-			if (plat[i].type == 22)
-			{
-				sPlat2_2.setPosition(plat[i].x, plat[i].y);
-				app.draw(sPlat2_2);
-			}
-			if (plat[i].type == 3)
-			{
-				sPlat3.setPosition(plat[i].x, plat[i].y);
-				app.draw(sPlat3);
-			}
-		}
-		Score(app, x, y, score); // draw score
+		Draw_sPlat(app, plat, sPlat2, x, y, 2);
+	    Draw_sPlat(app, plat, sPlat, x, y, 1);
+		Draw_sPlat(app, plat, sPlat2_2, x, y, 22);
+		Draw_sPlat(app, plat, sPlat3, x, y, 3);
+		Draw_sPlat(app, plat, sPlat4, x, y, 4);
+
+		If_Touch_plat_What_Moves_sPers(app, sPers, sPers2, x, y, touch);//draw spers
+
+    	Score(app, x, y, score); // draw score
 		app.display();
 	}
 
