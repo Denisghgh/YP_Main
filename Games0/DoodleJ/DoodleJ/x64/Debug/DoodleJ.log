@@ -1,11 +1,12 @@
 ﻿  Source.cpp
-c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(39): warning C4244: =: преобразование "float" в "int", возможна потеря данных
-c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(111): warning C4244: =: преобразование "float" в "int", возможна потеря данных
-c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(156): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(160): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(170): warning C4244: аргумент: преобразование "const int" в "float", возможна потеря данных
-c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(190): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(225): warning C4305: +=: усечение из "double" в "float"
-c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(228): warning C4305: +=: усечение из "double" в "float"
-c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(229): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
+c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(40): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(119): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(178): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(182): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(192): warning C4244: аргумент: преобразование "const int" в "float", возможна потеря данных
+c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(212): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(248): warning C4305: +=: усечение из "double" в "float"
+c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(252): warning C4305: +=: усечение из "double" в "float"
+c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(253): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
+c:\users\denisgh\documents\github\yp_main\games0\doodlej\doodlej\source.cpp(256): warning C4244: =: преобразование "float" в "int", возможна потеря данных
   DoodleJ.vcxproj -> C:\Users\Denisgh\Documents\GitHub\Yp_Main\Games0\DoodleJ\x64\Debug\DoodleJ.exe

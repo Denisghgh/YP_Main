@@ -1,0 +1,23 @@
+
+				if ((CountPlot_SupJmp < Count_SuperJump) || (CountPlot_Br < CountPlot_Breaking) || (CountPlot_OneJmp < Count_OneJump) || (CountPlot_Mov < CountPlot_Move)) {
+					plat[i].type = rand() % 4  + 2;//2.3.4.5
+					printf("plat[i].type  = %d\n", plat[i].type);
+					if (plat[i].type == 3 && CountPlot_SupJmp < Count_SuperJump) {
+						CountPlot_SupJmp++;
+					}
+					else
+						if (plat[i].type == 2 && CountPlot_Br < CountPlot_Breaking) {
+							CountPlot_Br++;
+						}
+						else 
+							if (plat[i].type == 4 && CountPlot_OneJmp < Count_OneJump) {
+								CountPlot_OneJmp++;
+							}
+							else 
+								if (plat[i].type == 5 && CountPlot_Mov < CountPlot_Move) {
+									CountPlot_Mov++;
+								}
+								else {
+									plat[i].type = 1;
+								}
+				}
