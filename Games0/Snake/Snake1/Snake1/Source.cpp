@@ -1,5 +1,10 @@
 #include <SFML/Graphics.hpp>
 #include <time.h>
+#include <windows.h> // for messagebox
+#define MB_OK                       0x00000000L
+#define MB_ICONASTERISK             0x00000040L
+#define MB_ICONINFORMATION          MB_ICONASTERISK
+
 using namespace sf;
 
 int N = 30, M = 20;
@@ -7,7 +12,8 @@ int size = 16;
 int w = size * N;
 int h = size * M;
 
-int dir, num = 4;
+int dir = 0, num = 8, check = 0;
+
 
 struct Snake
 {
@@ -19,21 +25,36 @@ struct Fruit
 	int x, y;
 } f;
 
-void Tick()
+void Tick(sf::RenderWindow& window)
 {
 	for (int i = num; i > 0; --i)
 	{
-		s[i].x = s[i - 1].x; s[i].y = s[i - 1].y;
+		s[i].x = s[i - 1].x;
+		s[i].y = s[i - 1].y;
 	}
-
-	if (dir == 0) s[0].y += 1;
-	if (dir == 1) s[0].x -= 1;
-	if (dir == 2) s[0].x += 1;
-	if (dir == 3) s[0].y -= 1;
+	
+	if ((dir == 0) && (check != 3)) {
+		s[0].y += 1;
+		check = dir;
+	}
+	if ((dir == 3) && (check != 0)) {
+		s[0].y -= 1;
+		check = dir;
+	}
+	if ((dir == 1) && (check != 2)) {
+		s[0].x -= 1;
+		check = dir;
+	}
+	if ((dir == 2) && (check != 1)) {
+		s[0].x += 1;
+		check = dir;
+	}
 
 	if ((s[0].x == f.x) && (s[0].y == f.y))
 	{
-		num++; f.x = rand() % N; f.y = rand() % M;
+		num++;
+		f.x = rand() % N;
+		f.y = rand() % M;
 	}
 
 	if (s[0].x > N) s[0].x = 0;
@@ -42,11 +63,17 @@ void Tick()
 	if (s[0].y < 0) s[0].y = M;
 
 	for (int i = 1; i < num; i++)
-		if (s[0].x == s[i].x && s[0].y == s[i].y)  num = i;
+		if (s[0].x == s[i].x && s[0].y == s[i].y) {
+			MessageBoxA(NULL, "YOU ARE DEAD !!!", "Game End!", MB_OK | MB_ICONINFORMATION);
+			window.close();
+		}
+
+		
 }
 
 int main()
 {
+
 	srand(time(0));
 
 	RenderWindow window(VideoMode(w, h), "Snake Game!");
@@ -77,12 +104,17 @@ int main()
 				window.close();
 		}
 
-		if (Keyboard::isKeyPressed(Keyboard::Left)) dir = 1;
-		if (Keyboard::isKeyPressed(Keyboard::Right)) dir = 2;
-		if (Keyboard::isKeyPressed(Keyboard::Up)) dir = 3;
-		if (Keyboard::isKeyPressed(Keyboard::Down)) dir = 0;
+		if ((Keyboard::isKeyPressed(Keyboard::Left)) && (check != 2)) dir = 1;
+		if ((Keyboard::isKeyPressed(Keyboard::Right)) && (check != 1)) dir = 2;
+		if ((Keyboard::isKeyPressed(Keyboard::Up)) && (check != 0)) dir = 3;
+		if ((Keyboard::isKeyPressed(Keyboard::Down)) && (check != 3)) dir = 0;
 
-		if (timer > delay) { timer = 0; Tick(); }
+
+		if (timer > delay) 
+		{
+			timer = 0;
+			Tick(window);
+		}
 
 		////// draw  ///////
 		window.clear();
@@ -96,11 +128,11 @@ int main()
 
 		for (int i = 0; i < num; i++)
 		{
-			sprite2.setPosition(s[i].x*size, s[i].y*size);  window.draw(sprite2);
+			sprite2.setPosition(s[i].x*size, s[i].y*size); 
+			window.draw(sprite2);
 		}
 
 		sprite2.setPosition(f.x*size, f.y*size);  window.draw(sprite2);
-
 		window.display();
 	}
 

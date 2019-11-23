@@ -216,8 +216,8 @@ int main()
 	t2_3.loadFromFile("images//platform_3.png");
 	t2_4.loadFromFile("images//platform_4.png");
 	t2_5.loadFromFile("images//platform_5.png");
-	t3.loadFromFile("images/doodle3.png");
-	t4.loadFromFile("images/doodle.png");
+	t3.loadFromFile("images/doodle4.png");
+	t4.loadFromFile("images/doodle5.png");
 	
 	Sprite sBackground(t1), sPlat(t2), sPlat2(t2_2), sPlat2_2(t2_2_Br), sPlat3(t2_3), sPlat4(t2_4), sPlat5(t2_5), sPers(t3), sPers2(t4);
 
