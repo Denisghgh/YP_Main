@@ -1,7 +1,0 @@
-﻿  Source.cpp
-c:\users\denisgh\documents\github\yp_main\games0\snake\snake1\snake1\source.cpp(77): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-c:\users\denisgh\documents\github\yp_main\games0\snake\snake1\snake1\source.cpp(89): warning C4305: инициализация: усечение из "double" в "float"
-c:\users\denisgh\documents\github\yp_main\games0\snake\snake1\snake1\source.cpp(125): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-c:\users\denisgh\documents\github\yp_main\games0\snake\snake1\snake1\source.cpp(131): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-c:\users\denisgh\documents\github\yp_main\games0\snake\snake1\snake1\source.cpp(135): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
-  Snake1.vcxproj -> C:\Users\Denisgh\Documents\GitHub\Yp_Main\Games0\Snake\Snake1\x64\Debug\Snake1.exe

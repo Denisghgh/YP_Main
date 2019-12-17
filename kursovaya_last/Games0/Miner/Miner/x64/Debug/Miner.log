@@ -1,0 +1,4 @@
+﻿  Source.cpp
+c:\trash\trash1\kursovaya_3\kursovaya\games0\miner\miner\source.cpp(38): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+c:\trash\trash1\kursovaya_3\kursovaya\games0\miner\miner\source.cpp(108): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  Miner.vcxproj -> C:\Trash\Trash1\kursovaya_3\kursovaya\Games0\Miner\x64\Debug\Miner.exe

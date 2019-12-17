@@ -1,0 +1,13 @@
+INPUT(
+./debug\main.o
+./debug\mainwindow.o
+./debug\register.o
+./debug\games.o
+./debug\sqlwork.o
+./debug\leaders.o
+./debug\qrc_photo.o
+./debug\moc_mainwindow.o
+./debug\moc_register.o
+./debug\moc_games.o
+./debug\moc_leaders.o
+);

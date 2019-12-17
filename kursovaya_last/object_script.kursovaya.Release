@@ -1,0 +1,13 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\register.o
+./release\games.o
+./release\sqlwork.o
+./release\leaders.o
+./release\qrc_photo.o
+./release\moc_mainwindow.o
+./release\moc_register.o
+./release\moc_games.o
+./release\moc_leaders.o
+);
