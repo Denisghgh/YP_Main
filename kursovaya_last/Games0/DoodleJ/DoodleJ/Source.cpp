@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <cstdlib>
 #include <windows.h>
-#include <iostream> //нужен для вывода строк "cout<<"
+#include <iostream> 
 #include <iterator> 
 #include <cstdio>
 #include <cstdint>
@@ -17,7 +17,7 @@
 #define Count_OneJump 1
 #define CountPlot_Move 1
 #define HandsUp_Time 45
-#define Acceleration_Y 0.2//0.2
+#define Acceleration_Y 0.2
 #define WindowW 400
 #define Acceleration_X 3
 #define WindowH 533
@@ -52,63 +52,66 @@ void Starting_preparartions(point* plat){
 void Score(sf::RenderWindow& app, int x, int  y, int& score) {
 	Font font;
 	font.loadFromFile("images//CyrilicOld.ttf");
-	Text text("", font, 20);//создаем объект текст. закидываем в объект текст строку, шрифт, размер шрифта(в пикселях);//сам объект текст (не строка)
+	Text text("", font, 20);
 	text.setFillColor(Color::Red);
 	
-	std::string s = std::to_string(y);// y into str
-	s = "Y = " + s;
-	text.setString(s);
-	text.setPosition(10, 20);
-	app.draw(text);
-
-	s = std::to_string(x);// x into str
-	s = "X = " + s;
-	text.setString(s);
-	text.setPosition(10, 4);
-	app.draw(text);
-
-	s = std::to_string(score);// score into str
+	std::string s = std::to_string(score);
 	s = "Score = " + s;
 	text.setString(s);
-	text.setPosition(280, 4);//280
+	text.setPosition(280, 4);
 	app.draw(text);
 }
 
+bool Touching_Platform(point* plat, int type, int i, int x, int y, float &dy) {
+	 int IndentXRight = 50, IndentXLeft = 68, IndentXPlat = 20, IndentY = 70, IndentYPlat = 14;
+		if ((x + IndentXRight > plat[i].x) && (x + IndentXPlat < plat[i].x + IndentXLeft)
+			&& (y + IndentY > plat[i].y) && (y + IndentY < plat[i].y + IndentYPlat) && (dy > 0) && (plat[i].type == type)) {
+			return true;
+		}
+		else
+			return false;
+}
+
+void HandsUp_Sound(int &touch, float &dy, int DeltaDy, Sound &jump_sound) {
+	dy = DeltaDy;
+	touch = HandsUp_Time;
+	jump_sound.play();
+}
+
+
 int Touch_Platform(point* plat, int x, int y, float &dy, int touch, Sound &jump_sound) {
 	for (int i = 0; i < CountPlot_Main; i++) {
-		if ((x + 50 > plat[i].x) && (x + 20 < plat[i].x + 68)
-			&& (y + 70 > plat[i].y) && (y + 70 < plat[i].y + 14) && (dy > 0) && (plat[i].type == 1)) {
-			dy = -10;
-			touch = HandsUp_Time;
-			jump_sound.play();
-		}
-		if ((x + 50 > plat[i].x) && (x + 20 < plat[i].x + 68)
-			&& (y + 70 > plat[i].y) && (y + 70 < plat[i].y + 14) && (dy > 0) && (plat[i].type == 2)) {
-			plat[i].type = 22;
-		}
-		if ((x + 50 > plat[i].x) && (x + 20 < plat[i].x + 68)
-			&& (y + 70 > plat[i].y) && (y + 70 < plat[i].y + 14) && (dy > 0) && (plat[i].type == 3)) {
-			dy = -20;
-			touch = HandsUp_Time;
-			jump_sound.play();
-		}
-		if ((x + 50 > plat[i].x) && (x + 20 < plat[i].x + 68)
-			&& (y + 70 > plat[i].y) && (y + 70 < plat[i].y + 14) && (dy > 0) && (plat[i].type == 4)) {
-			dy = -10;
-			touch = HandsUp_Time;
-			jump_sound.play();
-			plat[i].type = 0;
-		}
-		if ((x + 50 > plat[i].x) && (x + 20 < plat[i].x + 68)
-			&& (y + 70 > plat[i].y) && (y + 70 < plat[i].y + 14) && (dy > 0) && (plat[i].type == 5)) {
-			dy = -10;
-			touch = HandsUp_Time;
-			jump_sound.play();
-		}
+		if (Touching_Platform(plat, 1, i, x, y, dy)) HandsUp_Sound(touch, dy, -10, jump_sound);
+		if (Touching_Platform(plat, 2, i, x, y, dy)) plat[i].type = 22;
+		if (Touching_Platform(plat, 3, i, x, y, dy)) HandsUp_Sound(touch, dy, -20, jump_sound);
+		if (Touching_Platform(plat, 4, i, x, y, dy)) HandsUp_Sound(touch, dy, -10, jump_sound);
+		if (Touching_Platform(plat, 5, i, x, y, dy)) HandsUp_Sound(touch, dy, -10, jump_sound);
 	}
 	return touch;
 }
 
+void RegenPlat(point* plat, int i) {
+	if (plat[i].type == 22)  //regen brown
+		plat[i].type = 2;
+	if (plat[i].type == 0)  //regen white
+		plat[i].type = 4;
+}
+
+void NewPlats(point* plat, int i) {
+	plat[i].y = rand() % (-50) + 0;// немного рандомит появление новых платформ
+	if ((plat[i - 1].y + 10 > plat[i].y) || (plat[i - 1].y - 10 < plat[i].y)) // проверка от склеивания платформ
+		plat[i].y = plat[i].y + 10;
+	plat[i].x = rand() % (WindowW - 68) + 0;
+
+}
+void CountPlotMain(point* plat, int &CountPlot_Br, int &CountPlot_SupJmp, int &CountPlot_OneJmp, int &CountPlot_Mov) {
+	for (int i2 = 0; i2 < CountPlot_Main; i2++) {
+		if (plat[i2].type == 2) CountPlot_Br++;
+		if (plat[i2].type == 3) CountPlot_SupJmp++;
+		if (plat[i2].type == 4) CountPlot_OneJmp++;
+		if (plat[i2].type == 5) CountPlot_Mov++;
+	}
+}
 int MoveScreen(point* plat, int x, int &y, float &dy, float &dx, int score) {
 	int CountPlot_Br = 0, CountPlot_SupJmp = 0, CountPlot_OneJmp = 0, CountPlot_Mov = 0;
 	if (y < HeithJump) {
@@ -119,23 +122,10 @@ int MoveScreen(point* plat, int x, int &y, float &dy, float &dx, int score) {
 			plat[i].y = plat[i].y - dy;
 
 			if (plat[i].y > WindowH) {
-				if (plat[i].type == 22)  //regen brown
-					plat[i].type = 2;
-				if (plat[i].type == 0)  //regen white
-					plat[i].type = 4;
-
-				plat[i].y = rand() % (-50) + 0;// немного рандомит появление новых платформ
-				if ((plat[i - 1].y + 10 > plat[i].y) || (plat[i - 1].y - 10 < plat[i].y)) // проверка от склеивания платформ
-				plat[i].y = plat[i].y + 10;
-				plat[i].x = rand() % (WindowW - 68) + 0;
-			
-				for (int i2 = 0; i2 < CountPlot_Main; i2++) {
-					if (plat[i2].type == 2) CountPlot_Br++;
-					if (plat[i2].type == 3) CountPlot_SupJmp++;
-					if (plat[i2].type == 4) CountPlot_OneJmp++;
-					if (plat[i2].type == 5) CountPlot_Mov++;
-				}
-
+				RegenPlat(plat, i);
+				NewPlats(plat, i);
+				CountPlotMain(plat, CountPlot_Br, CountPlot_SupJmp, CountPlot_OneJmp, CountPlot_Mov);
+				
 				if ((CountPlot_SupJmp < Count_SuperJump) || (CountPlot_Br < CountPlot_Breaking) || (CountPlot_OneJmp < Count_OneJump) || (CountPlot_Mov < CountPlot_Move)) {
 					plat[i].type = rand() % 4  + 2;//2.3.4.5
 					if (plat[i].type == 3 && CountPlot_SupJmp < Count_SuperJump) {
@@ -198,7 +188,6 @@ void Sound_Playing(Sound &jump_sound){
 	jump_sound.play();
 }
 
-
 int main()
 {
 	SoundBuffer jumpBuffer;
@@ -239,23 +228,18 @@ int main()
 
 		if (Keyboard::isKeyPressed(Keyboard::Right)) x += Acceleration_X;
 		if (Keyboard::isKeyPressed(Keyboard::Left)) x -= Acceleration_X;
-		/*if (Keyboard::isKeyPressed(Keyboard::Up)) y = y - 20;
-		if (Keyboard::isKeyPressed(Keyboard::Down)) y = y + 20;
-		if (Keyboard::isKeyPressed(Keyboard::Space)) dy += 0.2;
-		if (Keyboard::isKeyPressed(Keyboard::Delete)) dy = 0;*/
 		if (Keyboard::isKeyPressed(Keyboard::Delete)) dy = 0;
 	else
 		dy += Acceleration_Y;
 		y += dy;
 		for (int i = 0; i < CountPlot_Main; i++)
 		if (plat[i].type == 5) {
-			plat[i].x = plat[i].x - dx; //влево 
+			plat[i].x = plat[i].x - dx;  
 			if (plat[i].x < 0)
 				dx = -1;
 			if (plat[i].x > WindowW)
 				dx = 1;
 		}
-
 
 		score = MoveScreen(plat, x, y, dy, dx, score);
 		touch = Touch_Platform(plat, x, y, dy, touch, jump_sound);
@@ -263,9 +247,9 @@ int main()
 		if (x > WindowW) x = 0;
 		if (x < 0) x = WindowW;
 		
-		GameEnd_YareDead(app, y, score); //if y fall down(y>533)
-		///////////////////////////////////////////////////////////////start drawing
-		sBackground.setPosition(0,0); //draw background
+		GameEnd_YareDead(app, y, score); 
+
+		sBackground.setPosition(0,0); 
 		app.draw(sBackground);
 	
 		Draw_sPlat(app, plat, sPlat2, x, y, 2);
@@ -275,9 +259,9 @@ int main()
 		Draw_sPlat(app, plat, sPlat5, x, y, 5);
 		Draw_sPlat(app, plat, sPlat, x, y, 1);
 
-		If_Touch_plat_What_Moves_sPers(app, sPers, sPers2, x, y, touch);//draw spers
+		If_Touch_plat_What_Moves_sPers(app, sPers, sPers2, x, y, touch);
 
-    	Score(app, x, y, score); // draw score
+    	Score(app, x, y, score); 
 		app.display();
 	}
 	return 0;
