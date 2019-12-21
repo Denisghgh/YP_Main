@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <time.h>
-#include <windows.h> // for messagebox
+#include <windows.h> 
 #include <iostream> 
 #define MB_OK                       0x00000000L
 #define MB_ICONASTERISK             0x00000040L
@@ -29,14 +29,14 @@ struct Fruit
 void Scores(sf::RenderWindow& app, int& score) {
 	Font font;
 	font.loadFromFile("images//CyrilicOld.ttf");
-	Text text("", font, 20);//создаем объект текст. закидываем в объект текст строку, шрифт, размер шрифта(в пикселях);//сам объект текст (не строка)
+	Text text("", font, 20);
 	text.setFillColor(Color::Black);
 
 	std::string s = "";
-	s = std::to_string(score);// score into str
+	s = std::to_string(score);
 	s = "Score = " + s;
 	text.setString(s);
-	text.setPosition(393, 7);//280
+	text.setPosition(393, 7);
 	app.draw(text);
 }
 
@@ -130,7 +130,6 @@ int main()
 			Tick(window);
 		}
 
-		////// draw  ///////
 		window.clear();
 
 		for (int i = 0; i < N; i++)

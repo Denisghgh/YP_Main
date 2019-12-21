@@ -12,14 +12,14 @@ bool dead = false, Mouse_Clicked = false;
 void Scores(sf::RenderWindow& app, int& score) {
 	Font font;
 	font.loadFromFile("images//CyrilicOld.ttf");
-	Text text("", font, 20);//создаем объект текст. закидываем в объект текст строку, шрифт, размер шрифта(в пикселях);//сам объект текст (не строка)
+	Text text("", font, 20);
 	text.setFillColor(Color::Black);
 
 	std::string s = "";
-	s = std::to_string(score);// score into str
+	s = std::to_string(score);
 	s = "Score = " + s;
 	text.setString(s);
-	text.setPosition(200, 7);//280
+	text.setPosition(200, 7);
 	app.draw(text);
 }
 
@@ -30,7 +30,6 @@ void GameEnd_YareDead(sf::RenderWindow& app) {
 		MessageBoxA(NULL, "YOU ARE DEAD !!!", "Game End!", MB_OK | MB_ICONINFORMATION);
 		app.close();
 	}
-		
 }
 
 int main()
@@ -41,7 +40,7 @@ int main()
 
 	int w = 32;
 	int grid[12][12];
-	int sgrid[12][12]; //for showing
+	int sgrid[12][12]; 
 
 	Texture t;
 	t.loadFromFile("images/tiles.jpg");
