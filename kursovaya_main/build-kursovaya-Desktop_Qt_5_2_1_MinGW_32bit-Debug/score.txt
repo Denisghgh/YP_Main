@@ -1,0 +1,9 @@
+DoodleJump aaaaa 499
+Snake aaaaa 4
+DoodleJump nikail23 5144
+Snake nikail23 13
+Miner aaaaa 16
+Miner nikail23 10
+DoodleJump denisghg 6851
+Snake denisghg 4
+Miner denisghg 5
