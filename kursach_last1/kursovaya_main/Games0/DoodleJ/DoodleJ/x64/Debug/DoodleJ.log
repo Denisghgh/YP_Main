@@ -1,0 +1,12 @@
+﻿  Source.cpp
+c:\trash\kursach_last1\kursovaya_main\games0\doodlej\doodlej\source.cpp(41): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+c:\trash\kursach_last1\kursovaya_main\games0\doodlej\doodlej\source.cpp(76): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\trash\kursach_last1\kursovaya_main\games0\doodlej\doodlej\source.cpp(125): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+c:\trash\kursach_last1\kursovaya_main\games0\doodlej\doodlej\source.cpp(170): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\trash\kursach_last1\kursovaya_main\games0\doodlej\doodlej\source.cpp(174): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+c:\trash\kursach_last1\kursovaya_main\games0\doodlej\doodlej\source.cpp(184): warning C4244: аргумент: преобразование "const int" в "float", возможна потеря данных
+c:\trash\kursach_last1\kursovaya_main\games0\doodlej\doodlej\source.cpp(200): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+c:\trash\kursach_last1\kursovaya_main\games0\doodlej\doodlej\source.cpp(236): warning C4305: +=: усечение из "double" в "float"
+c:\trash\kursach_last1\kursovaya_main\games0\doodlej\doodlej\source.cpp(237): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
+c:\trash\kursach_last1\kursovaya_main\games0\doodlej\doodlej\source.cpp(240): warning C4244: =: преобразование "float" в "int", возможна потеря данных
+  DoodleJ.vcxproj -> C:\Trash\kursach_last1\kursovaya_main\Games0\DoodleJ\x64\Debug\DoodleJ.exe
